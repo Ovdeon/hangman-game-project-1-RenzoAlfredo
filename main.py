@@ -1,7 +1,7 @@
 import json
 import random
 
-AHORCADO = ['''
+HANGED = ['''
       +---+
       |   |
           |
@@ -50,6 +50,34 @@ AHORCADO = ['''
      /|\  |
      / \  |
           |
+    =========''', '''
+      +---+
+      |   |
+      O   |
+     /|\  |
+     / \  |
+     /   |
+    =========''', '''
+      +---+
+      |   |
+      O   |
+     /|\  |
+     / \  |
+     / \  |
+    =========''', '''
+      +---+
+      |   |
+      O   |
+     /|\  |
+     / \  |
+     / \_  |
+    =========''', '''
+      +---+
+      |   |
+      O   |
+     /|\  |
+     / \  |
+     /_ \_|
     =========''']
 
 datos_json = """{
@@ -97,13 +125,13 @@ def SearchWordRandom(a):
 
 def ChooseLetter(letterb):
     while True:
-        l = input("guess a letter").lower()
+        l = input("guess a letter\n").lower()
         if len(l) != 1:
             print("give me only one letter")
         elif l in letterb:
             print("you already gave me that letter")
-        elif l not in 'abcdefghijklmnñopqrstuvwxyz':
-            print("pls give a letter")
+        elif l not in 'abcdefghijklmnñopqrstuvwxyz0123456789':
+            print("pls give a letter or number")
         else:
             return l
 
@@ -116,7 +144,9 @@ def UserGenerate():
 def WelcomeToUser(a):
     print(f'Hello, {a}!, welcome to the game')
  
-
+def PrintHanged(i):
+        print(HANGED[i])
+        
 name_user_a = UserGenerate()
 WelcomeToUser(name_user_a)
   
@@ -126,29 +156,88 @@ def start_program():
     print('[1] Low Level\n[2] Medium Level\n[3] High Level\n[S] Exit')
     n = input('Select the level you want to play\n').lower()
     if n == '1': 
+        WrongLetter = ''  
+        CorrectLetter = ''
         SecretWord = SearchWordRandom(datos_array_level_1)
-        letter1 = ChooseLetter(WrongLetter + CorrectLetter)  
-        if letter1 in SecretWord: 
-            CorrectLetter = CorrectLetter + letter1
-            letter_search = True
-            for i in range(len(SecretWord)):
-                if SecretWord[i] not in CorrectLetter:
-                    letter_search = False
-                    break
-            if letter_search:
-                print(f"Good you guess the word {SecretWord}")
-        else:
-            WrongLetter = WrongLetter + letter1
-            if len(WrongLetter) == 6:
-                print("Ha perdido") 
+        k = 0
+        r = len(SecretWord)+3
+        while k <= r: 
+                PrintHanged(k)
+                print(f'vas {k} turnos')
+                letter1 = ChooseLetter(WrongLetter + CorrectLetter)  
+                if letter1 in SecretWord: 
+                        CorrectLetter = CorrectLetter + letter1
+                        letter_search = True
+                        ##k = k + 1
+                        for i in range(len(SecretWord)):
+                                if SecretWord[i] not in CorrectLetter:
+                                        letter_search = False
+                                        break
+                        if letter_search:
+                                print(f"Good job! you guess the word \'{SecretWord}\'")
+                                k = k + r
+                        print(f'you are guessing untin now these words: {CorrectLetter}')
+                else:
+                        WrongLetter = WrongLetter + letter1
+                        if k == r:
+                                print(f"you have lost, the secret word was: {SecretWord} and your word was {CorrectLetter}") 
+                k = k + 1
+
     elif n == '2': 
+        WrongLetter = ''  
+        CorrectLetter = ''
         SecretWord = SearchWordRandom(datos_array_level_2)
-        print("Medium Level! We think on a word, pls guess that")
-        print("_ "*6)
+        k = 0
+        r = len(SecretWord)+2
+        while k <= r: 
+                PrintHanged(k)
+                print(f'vas {k} turnos')
+                letter1 = ChooseLetter(WrongLetter + CorrectLetter)  
+                if letter1 in SecretWord: 
+                        CorrectLetter = CorrectLetter + letter1
+                        letter_search = True
+                        ##k = k + 1
+                        for i in range(len(SecretWord)):
+                                if SecretWord[i] not in CorrectLetter:
+                                        letter_search = False
+                                        break
+                        if letter_search:
+                                print(f"Good job! you guess the word \'{SecretWord}\'")
+                                k = k + r
+                        print(f'you are guessing untin now these words: {CorrectLetter}')
+                else:
+                        WrongLetter = WrongLetter + letter1
+                        if k == r:
+                                print(f"you have lost, the secret word was: {SecretWord} and your word was {CorrectLetter}") 
+                k = k + 1
+                
     elif n == '3': 
+        WrongLetter = ''  
+        CorrectLetter = ''
         SecretWord = SearchWordRandom(datos_array_level_3)
-        print("High Level! We think on a word, pls guess that")
-        print("_ "*10)
+        k = 0
+        r = len(SecretWord)
+        while k <= r: 
+                PrintHanged(k)
+                print(f'vas {k} turnos')
+                letter1 = ChooseLetter(WrongLetter + CorrectLetter)  
+                if letter1 in SecretWord: 
+                        CorrectLetter = CorrectLetter + letter1
+                        letter_search = True
+                        ##k = k + 1
+                        for i in range(len(SecretWord)):
+                                if SecretWord[i] not in CorrectLetter:
+                                        letter_search = False
+                                        break
+                        if letter_search:
+                                print(f"Good job! you guess the word \'{SecretWord}\'")
+                                k = k + r
+                        print(f'you are guessing untin now these words: {CorrectLetter}')
+                else:
+                        WrongLetter = WrongLetter + letter1
+                        if k == r:
+                                print(f"you have lost, the secret word was: {SecretWord} and your word was {CorrectLetter}") 
+                k = k + 1
     elif n == 's':
         print("Thank you ;)")
         exit
