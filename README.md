@@ -27,3 +27,9 @@ The user will have 6 opportunities to adivine the word
 1 for body
 2 for arms
 2 for legs
+
+# Brainstorming
+
+A function to read the JSON file
+A function to welcome to user
+I thing that we can give the user somo difficulty options
